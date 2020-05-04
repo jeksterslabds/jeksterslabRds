@@ -1,0 +1,13 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^data_raw$
+^jeksterslabRds.Rproj$
+^.travis.yml$
+^appveyor.yml$
+^_pkgdown.yml$
+^docs$
+^README\.Rmd$
+^README\.md$
+^README\.html$
+^Makefile$

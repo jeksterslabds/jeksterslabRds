@@ -1,0 +1,30 @@
+Package: jeksterslabRds
+Title: Jekster's Lab Data Science and Statistics
+Version: 1.0.0
+Authors@R:
+    person(
+        given = "Ivan Jacob Agaloos",
+        family = "Pesigan",
+        role = c("aut", "cre"),
+        email = "i.j.a.pesigan@connect.um.edu.mo",
+        comment = c(ORCID = "0000-0003-4818-8420")
+    )
+Description: A collection of functions that I find useful in studying Data
+    Science and Statistics concepts and methods.
+License: MIT + file LICENSE
+URL: https://github.com/jeksterslabds/jeksterslabRds
+BugReports: https://github.com/jeksterslabds/jeksterslabRds/issues
+Encoding: UTF-8
+LazyData: true
+Language: en-US
+Depends: R (>= 3.5.0)
+Imports:
+    utils,
+    stats
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
