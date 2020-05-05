@@ -192,7 +192,7 @@ dat_linreg_y <- function(X,
 #' @family data generating functions
 #' @keywords data
 #' @examples
-#' dat <- dat_linreg(
+#' data <- dat_linreg(
 #'   n = 100,
 #'   beta = c(.5, .5, .5),
 #'   rFUN_X = rnorm,
@@ -228,10 +228,6 @@ dat_linreg <- function(n,
     y = y
   )
 }
-
-
-
-
 
 #' Generate Multivariate Normal Data.
 #'
@@ -283,7 +279,7 @@ dat_linreg <- function(n,
 #'   ncol = 3
 #' )
 #' mu <- c(100, 100, 100)
-#' dat <- dat_mvn(
+#' data <- dat_mvn(
 #'   n = 100,
 #'   Sigma = Sigma,
 #'   mu = mu
@@ -303,6 +299,147 @@ dat_mvn <- function(n,
     n = n,
     mu = mu,
     Sigma = Sigma,
+    ...
+  )
+}
+
+#' Generate Multivariate Normal Data from RAM Matrices
+#'
+#' Generates multivariate normal data from
+#'   the RAM matices, and
+#'   \eqn{p} dimensional vector of means.
+#'
+#' The function interally uses the
+#'   [`ram`]
+#'   function
+#'   to derive the
+#'   \eqn{\Sigma_{p \times p}}
+#'   matrix from the matices provided.
+#'   The generated
+#'   \eqn{\Sigma_{p \times p}}
+#'   matrix is then used together with the
+#'   \eqn{p} dimensional
+#'   vector of means to generate data using
+#'   [`dat_mvn`].
+#'
+#' @author Ivan Jacob Agaloos Pesigan
+#' @inheritParams dat_mvn
+#' @inheritParams ram
+#' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
+#'   using the variance-covariance matrix derived from the RAM matrices
+#'   and the mean vector provided.
+#' @keywords data
+#' @examples
+#' A <- matrix(
+#'   data = c(
+#'     0, 0.26^(1 / 2), 0,
+#'     0, 0, 0.26^(1 / 2),
+#'     0, 0, 0
+#'   ),
+#'   ncol = 3
+#' )
+#' S <- F <- I <- diag(3)
+#' S[1, 1] <- 225
+#' S[2, 2] <- 166.5
+#' S[3, 3] <- 166.5
+#' mu <- c(100, 100, 100)
+#' data <- dat_mvn_ram(
+#'   n = 100,
+#'   A = A,
+#'   S = S,
+#'   F = F,
+#'   I = I,
+#'   mu = mu
+#' )
+#' @export
+dat_mvn_ram <- function(n,
+                        A,
+                        S,
+                        F,
+                        I,
+                        mu = NULL,
+                        ...) {
+  dat_mvn(
+    n = n,
+    Sigma = ram(
+      A = A,
+      S = S,
+      F = F,
+      I = I
+    ),
+    mu = mu,
+    ...
+  )
+}
+
+#' Generate Multivariate Normal Data from the A Matrix and Variances of Observed Variables
+#'
+#' Generates multivariate normal data from
+#'   a \eqn{p \times p} A matrix,
+#'   \eqn{p} dimensional vector of variances of observed variables, and
+#'   \eqn{p} dimensional vector of means.
+#'
+#' The function interally uses the
+#'   [`ram_s`]
+#'   function
+#'   to derive the
+#'   \eqn{\Sigma_{p \times p}}
+#'   matrix from the matices provided.
+#'   The generated
+#'   \eqn{\Sigma_{p \times p}}
+#'   matrix is then used together with the
+#'   \eqn{p} dimensional
+#'   vector of means to generate data using
+#'   [`dat_mvn`].
+#'
+#' @author Ivan Jacob Agaloos Pesigan
+#' @inheritParams dat_mvn
+#' @inheritParams dat_mvn_ram
+#' @inheritParams ram_s
+#' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
+#'   using the variance-covariance matrix derived from the RAM matrices
+#'   and the mean vector provided.
+#' @family data generating functions
+#' @importFrom MASS mvrnorm
+#' @keywords data
+#' @examples
+#' A <- matrix(
+#'   data = c(
+#'     0, 0.26^(1 / 2), 0,
+#'     0, 0, 0.26^(1 / 2),
+#'     0, 0, 0
+#'   ),
+#'   ncol = 3
+#' )
+#' sigma2 <- c(15^2, 15^2, 15^2)
+#' F <- I <- diag(3)
+#' mu <- c(100, 100, 100)
+#' data <- dat_mvn_a(
+#'   n = 1000,
+#'   A = A,
+#'   sigma2 = sigma2,
+#'   F = F,
+#'   I = I,
+#'   mu = mu
+#' )
+#' @export
+dat_mvn_a <- function(n,
+                      A,
+                      sigma2,
+                      F,
+                      I,
+                      mu = NULL,
+                      ...) {
+  dat_mvn(
+    n = n,
+    Sigma = ram_s(
+      A = A,
+      sigma2 = sigma2,
+      F = F,
+      I = I,
+      SigmaMatrix = TRUE
+    ),
+    mu = mu,
     ...
   )
 }
