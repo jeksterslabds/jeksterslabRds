@@ -20,7 +20,8 @@ Language: en-US
 Depends: R (>= 3.5.0)
 Imports:
     utils,
-    stats
+    stats,
+    MASS
 Suggests:
     knitr,
     rmarkdown,

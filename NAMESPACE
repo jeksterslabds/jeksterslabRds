@@ -3,6 +3,8 @@
 export(dat_linreg)
 export(dat_linreg_X)
 export(dat_linreg_y)
+export(dat_mvn)
 export(linreg_inv)
 export(z)
 import(stats)
+importFrom(MASS,mvrnorm)

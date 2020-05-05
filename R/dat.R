@@ -225,3 +225,81 @@ dat_linreg <- function(n,
     y = y
   )
 }
+
+
+
+
+
+#' Generate Multivariate Normal Data.
+#'
+#' Generates multivariate normal data from
+#'   a \eqn{p \times p} variance-covariance matrix and
+#'   \eqn{p} dimensional mean vector.
+#'
+#' Data is generated from a multivariate normal distrubution
+#'   given by
+#'   \eqn{
+#'     \mathcal{N}
+#'     \sim
+#'     \left(
+#'       \mathbf{\mu_{p \times 1}}, \mathbf{\Sigma_{p \times p}}
+#'     \right)
+#'    }
+#'   where
+#'   \eqn{\mathcal{N}}
+#'   has the density function
+#'   \eqn{
+#'   \frac{
+#'     \exp
+#'     \left[ - \frac{1}{2} \left( \mathbf{X} - \boldsymbol{\mu} \right)^{T} \right]
+#'     \boldsymbol{\Sigma}^{-1} \left( \mathbf{X} - \boldsymbol{\mu} \right)
+#'   }
+#'   {
+#'   \sqrt{ \left( 2 \pi \right)^{k} | \boldsymbol{\Sigma} | }
+#'   }
+#' }.
+#'
+#' @author Ivan Jacob Agaloos Pesigan
+#' @param n Sample size.
+#' @param Sigma \eqn{p \times p} variance-covariance matrix.
+#' @param mu \eqn{p} dimensional mean vector. Defaults to zeros if unspecified.
+#' @param ... Arguments that can be passed to \code{\link[MASS]{mvrnorm}}.
+#' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
+#'   using the variance-covariance matrix
+#'   and the mean vector provided.
+#' @family data generating functions
+#' @importFrom MASS mvrnorm
+#' @keywords data
+#' @examples
+#' Sigma <- matrix(
+#'   data = c(
+#'     225, 112.50, 56.25,
+#'     112.5, 225, 112.5,
+#'     56.25, 112.50, 225
+#'   ),
+#'   ncol = 3
+#' )
+#' mu <- c(100, 100, 100)
+#' dat <- dat_mvn(
+#'   n = 100,
+#'   Sigma = Sigma,
+#'   mu = mu
+#' )
+#' @export
+dat_mvn <- function(n,
+                    Sigma,
+                    mu = NULL,
+                    ...) {
+  if (is.null(mu)) {
+    mu <- rep(
+      x = 0,
+      times = dim(Sigma)[1]
+    )
+  }
+  mvrnorm(
+    n = n,
+    mu = mu,
+    Sigma = Sigma,
+    ...
+  )
+}
