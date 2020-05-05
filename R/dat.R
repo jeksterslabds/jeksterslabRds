@@ -1,3 +1,6 @@
+# Data Generation Functions
+# Ivan Jacob Agaloos Pesigan
+
 #' Generate Data Matrix (X) From a Linear Regression Model.
 #'
 #' Generates random data matrix from a \eqn{k}-variable linear regression model.
@@ -189,7 +192,7 @@ dat_linreg_y <- function(X,
 #' @family data generating functions
 #' @keywords data
 #' @examples
-#' data <- dat_linreg(
+#' dat <- dat_linreg(
 #'   n = 100,
 #'   beta = c(.5, .5, .5),
 #'   rFUN_X = rnorm,
@@ -263,7 +266,7 @@ dat_linreg <- function(n,
 #' @param n Sample size.
 #' @param Sigma \eqn{p \times p} variance-covariance matrix.
 #' @param mu \eqn{p} dimensional mean vector. Defaults to zeros if unspecified.
-#' @param ... Arguments that can be passed to \code{\link[MASS]{mvrnorm}}.
+#' @param ... Arguments that can be passed to [`MASS::mvrnorm`].
 #' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
 #'   using the variance-covariance matrix
 #'   and the mean vector provided.
