@@ -65,31 +65,31 @@ se <- c(
 )
 
 Variable <- c(
-"`reps`",   	    
-"`n`",       
-"`k`",          
-"`rFUN_X`",  	    
-"`mu`",    
-"`sigma`",        
-"`sigma_sigma2`"
+  "`reps`",
+  "`n`",
+  "`k`",
+  "`rFUN_X`",
+  "`mu`",
+  "`sigma`",
+  "`sigma_sigma2`"
 )
 Description <- c(
-"Number of simulation replications.",                                                                  
-"Sample size $\left( n \right)$.",                                                                
-"Number of regressors which includes a regressor whose value is 1 for each observation.",          
-"The distribution function used to generate values of $\mathbf{X}$.",            
-"Population mean $\left( \mu \right)$.",                               
-"Population variance $\left( \sigma \right)$.",                                                  
-"Standard error of the variance $\left( \sigma_{\sigma^2} = \sigma^2 \sqrt{\frac{2}{n - 1}} \right)$."
+  "Number of simulation replications.",
+  "Sample size $\\left( n \\right)$.",
+  "Number of regressors which includes a regressor whose value is 1 for each observation.",
+  "The distribution function used to generate values of $\\mathbf{X}$.",
+  "Population mean $\\left( \\mu \\right)$.",
+  "Population variance $\\left( \\sigma \\right)$.",
+  "Standard error of the variance $\\left( \\sigma_{\\sigma^2} = \\sigma^2 \\sqrt{\\frac{2}{n - 1}} \\right)$."
 )
 Value <- c(
-reps,
-n,
-k,
-"`rnorm`",
-mu,
-sigma,
-sigma_sigma2
+  reps,
+  n,
+  k,
+  "`rnorm`",
+  mu,
+  sigma,
+  sigma_sigma2
 )
 knitr::kable(
   x = data.frame(
