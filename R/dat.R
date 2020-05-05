@@ -229,6 +229,115 @@ dat_linreg <- function(n,
   )
 }
 
+#' Generate Linearly Separable Data Based on the Perceptron Algorithm
+#'
+#' Generates data that can be classified as \eqn{+1} or \eqn{-1}
+#'   based on a linear classifier defined by a vector of weights \eqn{w}.
+#'
+#' Randomly generates the data matrix
+#'   \eqn{\mathbf{X}}
+#'   and vector
+#'   \eqn{\mathbf{y}}
+#'   using a threshold function:
+#'   if
+#'   \eqn{\mathbf{X}_{n \times k} \mathbf{w}_{k \times 1} > 0}
+#'   then \eqn{\mathbf{y}_{n \times 1} = +1} and
+#'   if
+#'   \eqn{\mathbf{X}_{n \times k} \mathbf{w}_{k \times 1} < 0}
+#'   then \eqn{\mathbf{y}_{n \times 1} = -1}.
+#' @author Ivan Jacob Agaloos Pesigan
+#' @inheritParams dat_linreg_X
+#' @param w A vector of weights defining the linear classifier.
+#'   The first element of the vector is the bias parameter \eqn{b}.
+#' @keywords data
+#' @examples
+#' data <- dat_percep(
+#'   n = 100,
+#'   w = c(.5, .5, .5),
+#'   rFUN_X = rnorm,
+#'   mean = 0,
+#'   sd = 1
+#' )
+#' @export
+dat_percep <- function(n,
+                       w,
+                       ...) {
+  X <- dat_linreg_X(
+    n = n,
+    k = length(w),
+    ...
+  )
+  list(
+    X = X,
+    y = sign(X %*% w)
+  )
+}
+
+#' Generate Data Based on the Logistic Regression Model.
+#'
+#' Generates data based on the logistic regression model
+#'   using the inverse logit link function.
+#'
+#' Randomly generates the data matrix
+#'   \eqn{\mathbf{X}}
+#'   and the regressand data
+#'   \eqn{\mathbf{y}}.
+#'   \eqn{\mathbf{y}_{n \times 1}} is generated
+#'   from a binomial distribution
+#'   where
+#'   \eqn{p \left( x \right)}
+#'   is equal to
+#'   \eqn{
+#'     \frac{
+#'       1
+#'     }
+#'     {
+#'       1 - e^{- \left( \mathbf{X}_{n \times k} \boldsymbol{\beta}_{n \times 1} \right)}
+#'     }
+#'   }.
+#'
+#' @author Ivan Jacob Agaloos Pesigan
+#' @inheritParams dat_linreg_X
+#' @param beta \eqn{k \times 1} vector of \eqn{k} regression parameters.
+#' @return Returns a list with two elements \code{X} and \code{y}.
+#' - `X` is the data matrix,
+#'   that is an \eqn{n \times k}  matrix
+#'   of \eqn{n} observations of \eqn{k} regressors,
+#'   which includes a regressor whose value is 1 for each observation.
+#' - `y` \eqn{n \times 1} vector of observations on the regressand.
+#' @keywords data
+#' @examples
+#' data <- dat_logreg(
+#'   n = 100,
+#'   beta = c(.5, .5, .5),
+#'   rFUN_X = rnorm,
+#'   mean = 0,
+#'   sd = 1
+#' )
+#' @export
+dat_logreg <- function(n,
+                       beta,
+                       rFUN_X = rnorm,
+                       ...) {
+  X <- dat_linreg_X(
+    n = n,
+    k = length(beta),
+    constant = TRUE,
+    rFUN_X = rFUN_X,
+    ...
+  )
+  list(
+    X = X,
+    y = rbinom(
+      n = n,
+      size = 1,
+      prob = inv_logit(
+        X %*% beta
+      )
+    )
+  )
+}
+
 #' Generate Multivariate Normal Data.
 #'
 #' Generates multivariate normal data from
@@ -259,10 +368,11 @@ dat_linreg <- function(n,
 #' }.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
-#' @param n Sample size.
+#' @inheritParams dat_linreg_X
 #' @param Sigma \eqn{p \times p} variance-covariance matrix.
 #' @param mu \eqn{p} dimensional mean vector. Defaults to zeros if unspecified.
 #' @param ... Arguments that can be passed to [`MASS::mvrnorm`].
+#'
 #' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
 #'   using the variance-covariance matrix
 #'   and the mean vector provided.
