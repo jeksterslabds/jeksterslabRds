@@ -2,7 +2,10 @@
 #' title: "Test: gendat_linreg_X assuming N(mu, sigma^2)."
 #' author: "Ivan Jacob Agaloos Pesigan"
 #' date: "`r Sys.Date()`"
-#' output: rmarkdown::html_vignette
+#' output:
+#'   rmarkdown::html_vignette:
+#'     toc: true
+#'     toc_depth: 2
 #' vignette: >
 #'   %\VignetteIndexEntry{Test: gendat_linreg_X assuming N(mu, sigma^2).}
 #'   %\VignetteEngine{knitr::rmarkdown}
