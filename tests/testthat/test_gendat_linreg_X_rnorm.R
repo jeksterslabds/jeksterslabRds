@@ -156,8 +156,16 @@ results_sigma_sigma2 <- data.frame(
   vec_sigma_sigma2,
   se_estimates[seq_along(vec_sigma_sigma2) + length(vec_sigma_mu)]
 )
-col.names.means <- c("k", "Parameter", "Mean of estimates")
-col.names.sd <- c("k", "Parameter", "Standard deviation of estimates")
+col.names.means <- c(
+  "k",
+  "Parameter",
+  "Mean of estimates"
+)
+col.names.sd <- c(
+  "k",
+  "Parameter",
+  "Standard deviation of estimates"
+)
 knitr::kable(
   x = results_mu,
   col.names = col.names.means,
@@ -191,12 +199,12 @@ test_that("parameters are equivalent to mean estimates", {
   )
 })
 #+ testthat_02, echo=TRUE
- test_that("parameter standard errors are equivalent to estimates standard errors", {
+test_that("parameter standard errors are equivalent to estimates standard errors", {
   expect_equivalent(
     round(x = se_estimates, digits = 0),
     round(x = se, digits = 0)
   )
- })
+})
 #'
 #' ## References
 #'
