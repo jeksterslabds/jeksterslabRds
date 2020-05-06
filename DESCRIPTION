@@ -22,7 +22,9 @@ Imports:
     utils,
     stats,
     MASS,
-    extraDistr
+    extraDistr,
+    fungible,
+    lavaan
 Suggests:
     knitr,
     rmarkdown,

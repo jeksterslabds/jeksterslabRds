@@ -1,555 +1,169 @@
-# Data Generation Functions
-# Ivan Jacob Agaloos Pesigan
+#' Galton's Height Data
+#'
+#' @format A data frame with 898 cases and 6 variables:
+#' \describe{
+#'   \item{family}{The family that the child belongs to, labeled by the numbers from 1 to 204 and 136A.}
+#'   \item{father}{The father's height, in inches.}
+#'   \item{mother}{The mother's height, in inches.}
+#'   \item{gender}{The gender of the child, male (M) or female (F).}
+#'   \item{height}{The height of the child, in inches.}
+#'   \item{kids}{The number of kids in the family of the child.}
+#'   \item{male}{1 if the child is male. 0 if the child is female.}
+#'   \item{female}{1 if the child is female. 0 if the child is male.}
+#' }
+#' @source Francis Galton, 2017, "Galton height data",
+#'   \url{https://doi.org/10.7910/DVN/T0HSJ1}, Harvard Dataverse, V1,
+#'   UNF:6:2ty+0YgqR2a66FlvjCuPkQ== \[fileUNF\]
+"galton"
 
-#' Generate Data Matrix (X) From a Linear Regression Model.
+#' Mothers' and daughters' Heights
 #'
-#' Generates random data matrix from a \eqn{k}-variable linear regression model.
+#' Heights of mothers in the United Kingdom under the age of 65 and
+#'   one of their adult daughters over the age of 18
+#'   collected during the period 1893-1898.
 #'
-#' Randomly generates the data matrix
-#' (\eqn{\mathbf{X}}),
-#' that is an
-#' \eqn{n \times k}
-#' dimensional matrix of
-#' \eqn{n}
-#' observations of
-#' \eqn{k}
-#' regressors,
-#' which includes a regressor whose value is 1 for each observation.
-#' The data generating function is supplied by the argument
-#' `rFUN_X`
-#' ([`stats::rnorm()`] is the default value).
-#' Additional arguments to `rFUN_X` are supplied using the
-#' `...` argument.
-#' The data matix is also called the design matrix and model matrix.
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @param n Positive integer.
-#'   Sample size.
-#' @param k Positive integer.
-#'   Number of regressors.
-#' @param constant Logical.
-#'   An option to include or to exclude the vector of constants.
-#'   If `TRUE`, the vector of constants is included.
-#'   If `FALSE`, the vector of constants is excluded.
-#' @param rFUN_X Function.
-#'   The distribution function
-#'   used to generate values of \eqn{\mathbf{X}}.
-#'   The default value is [`stats::rnorm()`]
-#'   for the Gaussian probability density function.
-#' @param ... Arguments to pass to `rFUN_X`.
-#' @return If `constant = TRUE`,
-#'   returns an \eqn{n \times k} numeric matrix
-#'   where the first column consists of 1s.
-#'   If `constant = FALSE`,
-#'   returns an \eqn{n \times k - 1} numeric matrix.
-#' @family data generating functions
-#' @keywords data
-#' @import stats
+#' @format A dataframe with 1375 rows and two variables
+#' \describe{
+#'   \item{mheight}{Mother's height, in inches.}
+#'   \item{dheight}{Daughter's height, in inches.}
+#'  }
+#' @docType data
+#' @usage data(heights)
+#' @keywords datasets
+#' @references
+#'   Pearson, E. S. and Lee, S. (1903). On the laws of inheritance in man. _Biometrika_, 2, 357-–463.
 #' @examples
-#' X <- dat_linreg_X(
-#'   n = 100,
-#'   k = 3,
-#'   constant = TRUE,
-#'   rFUN_X = rnorm,
-#'   mean = 100,
-#'   sd = 15
-#' )
-#' @export
-dat_linreg_X <- function(n,
-                         k,
-                         constant = TRUE,
-                         rFUN_X = rnorm,
-                         ...) {
-  X <- matrix(
-    data = 0,
-    ncol = k - 1,
-    nrow = n
-  )
-  for (i in 1:(k - 1)) {
-    X[, i] <- rFUN_X(
-      n = n,
-      ...
-    )
-  }
-  if (constant) {
-    X <- cbind(
-      1,
-      X
-    )
-    return(X)
-  } else {
-    return(X)
-  }
-}
+#' data(heights)
+"heights"
 
-#' Generate Regressand Data (y) From a Linear Regression Model.
+#' Wages of Workers
 #'
-#' Generates regressand data from a \eqn{k}-variable linear regression model.
+#' Wages and related data for 1289 workers.
 #'
-#' Randomly generates the regressand data (\eqn{\mathbf{y}})
-#' using specified population parameters defined by
-#' \eqn{\mathbf{y}_{n \times 1}
-#'   =
-#'   \mathbf{X}_{n \times k}
-#'   \boldsymbol{\beta}_{k \times 1} +
-#'   \boldsymbol{\epsilon}_{n \times 1}
-#' }.
-#' The distribution of \eqn{\epsilon} is supplied by the argument
-#' `rFUN_y`
-#' ([`stats::rnorm()`] is the default value).
-#' Additional arguments to `rFUN_y` are supplied using the
-#' `...` argument.
-#' By default,
-#' \eqn{\epsilon} is assumed to be normally distributed
-#' with a mean of 0 and a variance of 1
-#' (\eqn{
-#'   \mathcal{N}
-#'   \sim
-#'   \left(
-#'     \mu_{\epsilon} = 0,
-#'     \sigma_{\epsilon}^{2} = 1
-#'   \right)
-#' }).
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @param X Matrix.
-#'   The data matrix, that is an \eqn{n \times k}  matrix
-#'   of \eqn{n} observations of \eqn{k} regressors,
-#'   which includes a regressor whose value is 1 for each observation.
-#'   Also called the design matrix and model matrix.
-#' @param beta Numeric vector.
-#'   \eqn{k \times 1} vector of \eqn{k} regression parameters.
-#' @param rFUN_y Function.
-#'   The distribution function
-#'   used to generate values of the residuals \eqn{\epsilon}.
-#'   The default value is [`stats::rnorm()`]
-#'   for the Gaussian probability density function.
-#' @param ... Arguments to pass to `rFUN_y`.
-#' @family data generating functions
-#' @keywords data
+#' @format A dataframe with 1289 rows and seven variables
+#' \describe{
+#'   \item{wages}{Hourly wages in dollars.}
+#'   \item{gender}{1 for female, 0 for male.}
+#'   \item{race}{1 for nonwhite workers and 0 for white workers.}
+#'   \item{union}{1 if in union, 0 otherwise.}
+#'   \item{edu}{Education in years.}
+#'   \item{exp}{Work experience in years.}
+#'   \item{age}{Age in years.}
+#'  }
+#' @docType data
+#' @usage data(wages)
+#' @keywords datasets
 #' @examples
-#' X <- dat_linreg_X(
-#'   n = 100,
-#'   k = 3,
-#'   constant = TRUE,
-#'   rFUN_X = rnorm,
-#'   mean = 0,
-#'   sd = 1
-#' )
-#' y <- dat_linreg_y(
-#'   X = X,
-#'   beta = c(.5, .5, .5),
-#'   rFUN_y = rnorm,
-#'   mean = 0,
-#'   sd = 1
-#' )
-#' @export
-dat_linreg_y <- function(X,
-                         beta,
-                         rFUN_y = rnorm,
-                         ...) {
-  epsilon <- rFUN_y(
-    n = nrow(X),
-    ...
-  )
-  X %*% beta + epsilon
-}
+#' data(wages)
+"wages"
 
-#' Generate Random Data From a Linear Regression Model.
+#' Wages of Youth
 #'
-#' Generates data from a \eqn{k}-variable linear regression model.
+#' Wages and educational attainment of youth in the USA
 #'
-#' Randomly generates the data matrix
-#' \eqn{\mathbf{X}}
-#' and the regressand data
-#' \eqn{\mathbf{y}}
-#' using specified population parameters defined by
-#' \eqn{\mathbf{y}_{n \times 1}
-#'   =
-#'   \mathbf{X}_{n \times k}
-#'   \boldsymbol{\beta}_{k \times 1} +
-#'   \boldsymbol{\epsilon}_{n \times 1}}.
-#' Refer to [`dat_linreg_X()`]
-#' on how \eqn{\mathbf{X}} is generated
-#' and [`dat_linreg_y()`]
-#' on how \eqn{\mathbf{y}} is generated.
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @inheritParams dat_linreg_X
-#' @inheritParams dat_linreg_y
-#' @param X_args Named list.
-#'   List of arguments
-#'   to pass to `rFUN_X`.
-#' @param y_args Named list.
-#'   List of arguments
-#'   to pass to `rFUN_y`.
-#' @return Returns a list with two elements `X` and `y`.
-#'   - `X` is the data matrix,
-#'      that is an \eqn{n \times k}  matrix
-#'      of \eqn{n} observations of \eqn{k} regressors,
-#'      which includes a regressor whose value is 1 for each observation.
-#'   - `y` \eqn{n \times 1} vector of observations on the regressand.
-#' @family data generating functions
-#' @keywords data
+#' @format A dataframe with 540 rows and 16 variables
+#' \describe{
+#'   \item{age}{Age in 2002.}
+#'   \item{school}{Years of schooling (highest grade completed as of 2002).}
+#'   \item{female}{1 for female, 0 for male.}
+#'   \item{male}{1 for female, 0 for male.}
+#'   \item{black}{1 for blacks.}
+#'   \item{hisp}{1 for Hispanic; non-black, non-Hispanic is the reference category.}
+#'   \item{exp}{Total out-of-school work experience in years as of the 2002 interview.}
+#'   \item{married}{1 if married, 0 otherwise.}
+#'   \item{schoolf}{Years of schooling of respondent's father.}
+#'   \item{schoolm}{Years of schooling of respondent's mother.}
+#'   \item{siblings}{Number of siblings.}
+#'   \item{wages}{Hourly wages in dollars.}
+#'   \item{asvab02}{Arithmetic reasoning.}
+#'   \item{asvab03}{Word knowledge.}
+#'   \item{lnwages}{Natural logarithm of wages.}
+#'   \item{exp2}{Work experience squared.}
+#'  }
+#' @docType data
+#' @usage data(wages2)
+#' @keywords datasets
 #' @examples
-#' data <- dat_linreg(
-#'   n = 100,
-#'   beta = c(.5, .5, .5),
-#'   rFUN_X = rnorm,
-#'   rFUN_y = rnorm,
-#'   X_args = list(mean = 0, sd = 1),
-#'   y_args = list(mean = 0, sd = 1)
-#' )
-#' @export
-dat_linreg <- function(n,
-                       beta,
-                       rFUN_X = rnorm,
-                       rFUN_y = rnorm,
-                       X_args,
-                       y_args) {
-  k <- length(beta)
-  X_args[["n"]] <- n
-  X_args[["k"]] <- k
-  X_args[["constant"]] <- TRUE
-  X_args[["rFUN_X"]] <- rFUN_X
-  X <- do.call(
-    what = "dat_linreg_X",
-    args = X_args
-  )
-  y_args[["X"]] <- X
-  y_args[["beta"]] <- beta
-  y_args[["rFUN_y"]] <- rFUN_y
-  y <- do.call(
-    what = "dat_linreg_y",
-    args = y_args
-  )
-  list(
-    X = X,
-    y = y
-  )
-}
+#' data(wages2)
+"wages2"
 
-#' Generate Linearly Separable Data Based on the Perceptron Algorithm
+#' Effects of Temperature on Water Consumption
 #'
-#' Generates data that can be classified as \eqn{+1} or \eqn{-1}
-#'   based on a linear classifier defined by a vector of weights \eqn{w}.
+#' An experimental study of the  effects of temperature on water consumption
+#'   through self-reported thirst.
+#'   Fifty participants were in a room for 4 hours doing a variety of tasks.
+#'   Before the experiment,
+#'   each participant was acclimated to a standard temperature
+#'   of 70 degrees Fahrenheit.
 #'
-#' Randomly generates the data matrix
-#'   \eqn{\mathbf{X}}
-#'   and vector
-#'   \eqn{\mathbf{y}}
-#'   using a threshold function:
-#'   if
-#'   \eqn{\mathbf{X}_{n \times k} \mathbf{w}_{k \times 1} > 0}
-#'   then \eqn{\mathbf{y}_{n \times 1} = +1} and
-#'   if
-#'   \eqn{\mathbf{X}_{n \times k} \mathbf{w}_{k \times 1} < 0}
-#'   then \eqn{\mathbf{y}_{n \times 1} = -1}.
-#' @author Ivan Jacob Agaloos Pesigan
-#' @inheritParams dat_linreg_X
-#' @param w A vector of weights defining the linear classifier.
-#'   The first element of the vector is the bias parameter \eqn{b}.
-#' @keywords data
+#' @format A dataframe with 50 rows and three variables
+#' \describe{
+#'   \item{temp}{Room temperature in degrees Fahrenheit.
+#'     The temperature was manipulated such that the participants were exposed
+#'     to a specific temperature in the room for the 4 hours of the experiment.}
+#'   \item{thirst}{Self-reported measure of thirst at the end of a 2-hour period. The scale is from 1 (not at all thirsty) to 5 (very thirsty)}
+#'   \item{water}{The number of deciliters of water consumed during the last 2 hours of the study.}
+#'  }
+#' @docType data
+#' @usage data(water)
+#' @keywords datasets
 #' @examples
-#' data <- dat_percep(
-#'   n = 100,
-#'   w = c(.5, .5, .5),
-#'   rFUN_X = rnorm,
-#'   mean = 0,
-#'   sd = 1
-#' )
-#' @export
-dat_percep <- function(n,
-                       w,
-                       ...) {
-  X <- dat_linreg_X(
-    n = n,
-    k = length(w),
-    ...
-  )
-  list(
-    X = X,
-    y = sign(X %*% w)
-  )
-}
+#' data(water)
+"water"
 
-#' Generate Data Based on the Logistic Regression Model.
+#' Teacher Expectancies on Student Achievement
 #'
-#' Generates data based on the logistic regression model
-#'   using the inverse logit link function.
-#'
-#' Randomly generates the data matrix
-#'   \eqn{\mathbf{X}}
-#'   and the regressand data
-#'   \eqn{\mathbf{y}}.
-#'   \eqn{\mathbf{y}_{n \times 1}} is generated
-#'   from a binomial distribution
-#'   where
-#'   \eqn{p \left( x \right)}
-#'   is equal to
-#'   \eqn{
-#'     \frac{
-#'       1
-#'     }
-#'     {
-#'       1 - e^{- \left( \mathbf{X}_{n \times k} \boldsymbol{\beta}_{n \times 1} \right)}
-#'     }
-#'   }.
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @inheritParams dat_linreg_X
-#' @param beta \eqn{k \times 1} vector of \eqn{k} regression parameters.
-#' @return Returns a list with two elements \code{X} and \code{y}.
-#' - `X` is the data matrix,
-#'   that is an \eqn{n \times k}  matrix
-#'   of \eqn{n} observations of \eqn{k} regressors,
-#'   which includes a regressor whose value is 1 for each observation.
-#' - `y` \eqn{n \times 1} vector of observations on the regressand.
-#' @keywords data
+#' @format A dataframe with 40 rows and four variabels
+#' \describe{
+#'   \item{exp}{Teacher expectancy based on an intelligence test given to the student the previous year.}
+#'   \item{soc}{The average observer rating of social warmth.}
+#'   \item{inp}{The average observer rating of input to the student.}
+#'   \item{ach}{Studen achievement measured using a score in the test at the end of the semester.}
+#'  }
+#' @docType data
+#' @usage data(achievement)
+#' @keywords datasets
 #' @examples
-#' data <- dat_logreg(
-#'   n = 100,
-#'   beta = c(.5, .5, .5),
-#'   rFUN_X = rnorm,
-#'   mean = 0,
-#'   sd = 1
-#' )
-#' @export
-dat_logreg <- function(n,
-                       beta,
-                       rFUN_X = rnorm,
-                       ...) {
-  X <- dat_linreg_X(
-    n = n,
-    k = length(beta),
-    constant = TRUE,
-    rFUN_X = rFUN_X,
-    ...
-  )
-  list(
-    X = X,
-    y = rbinom(
-      n = n,
-      size = 1,
-      prob = inv_logit(
-        X %*% beta
-      )
-    )
-  )
-}
+#' data(achievement)
+"achievement"
 
-#' Generate Multivariate Normal Data.
+#' Stability of Alienation
 #'
-#' Generates multivariate normal data from
-#'   a \eqn{p \times p} variance-covariance matrix and
-#'   \eqn{p} dimensional mean vector.
-#'
-#' Data is generated from a multivariate normal distrubution
-#'   given by
-#'   \eqn{
-#'     \mathcal{N}
-#'     \sim
-#'     \left(
-#'       \mathbf{\mu_{p \times 1}}, \mathbf{\Sigma_{p \times p}}
-#'     \right)
-#'    }
-#'   where
-#'   \eqn{\mathcal{N}}
-#'   has the density function
-#'   \eqn{
-#'   \frac{
-#'     \exp
-#'     \left[ - \frac{1}{2} \left( \mathbf{X} - \boldsymbol{\mu} \right)^{T} \right]
-#'     \boldsymbol{\Sigma}^{-1} \left( \mathbf{X} - \boldsymbol{\mu} \right)
-#'   }
-#'   {
-#'   \sqrt{ \left( 2 \pi \right)^{k} | \boldsymbol{\Sigma} | }
-#'   }
-#' }.
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @inheritParams dat_linreg_X
-#' @param Sigma \eqn{p \times p} variance-covariance matrix.
-#' @param mu \eqn{p} dimensional mean vector. Defaults to zeros if unspecified.
-#' @param ... Arguments that can be passed to [`MASS::mvrnorm`].
-#'
-#' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
-#'   using the variance-covariance matrix
-#'   and the mean vector provided.
-#' @family data generating functions
-#' @importFrom MASS mvrnorm
-#' @keywords data
+#' @format A \eqn{6 \times 6} covariance matrix of the following variables
+#' \describe{
+#'   \item{anomie67}{Anomie measured in 1967.}
+#'   \item{powerless67}{Powerlessness measured in 1967.}
+#'   \item{anomie71}{Anomie measured in 1971.}
+#'   \item{powerless71}{Powerlessness measured in 1971.}
+#'   \item{edu}{Education.}
+#'   \item{sei}{Duncan's occupation status index (SEI).}
+#'  }
+#' @docType data
+#' @usage data(alienation)
+#' @keywords datasets
 #' @examples
-#' Sigma <- matrix(
-#'   data = c(
-#'     225, 112.50, 56.25,
-#'     112.5, 225, 112.5,
-#'     56.25, 112.50, 225
-#'   ),
-#'   ncol = 3
-#' )
-#' mu <- c(100, 100, 100)
-#' data <- dat_mvn(
-#'   n = 100,
-#'   Sigma = Sigma,
-#'   mu = mu
-#' )
-#' @export
-dat_mvn <- function(n,
-                    Sigma,
-                    mu = NULL,
-                    ...) {
-  if (is.null(mu)) {
-    mu <- rep(
-      x = 0,
-      times = dim(Sigma)[1]
-    )
-  }
-  mvrnorm(
-    n = n,
-    mu = mu,
-    Sigma = Sigma,
-    ...
-  )
-}
+#' data(alienation)
+"alienation"
 
-#' Generate Multivariate Normal Data from RAM Matrices
+#' Simple Mediation Model Using Latent Variables Data
 #'
-#' Generates multivariate normal data from
-#'   the RAM matices, and
-#'   \eqn{p} dimensional vector of means.
+#' Simple mediation model data using latent variables.
 #'
-#' The function interally uses the
-#'   [`ram`]
-#'   function
-#'   to derive the
-#'   \eqn{\Sigma_{p \times p}}
-#'   matrix from the matices provided.
-#'   The generated
-#'   \eqn{\Sigma_{p \times p}}
-#'   matrix is then used together with the
-#'   \eqn{p} dimensional
-#'   vector of means to generate data using
-#'   [`dat_mvn`].
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @inheritParams dat_mvn
-#' @inheritParams ram
-#' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
-#'   using the variance-covariance matrix derived from the RAM matrices
-#'   and the mean vector provided.
-#' @keywords data
+#' @docType data
+#' @usage data(dat_med_simple_lat)
+#' @keywords datasets
 #' @examples
-#' A <- matrix(
-#'   data = c(
-#'     0, 0.26^(1 / 2), 0,
-#'     0, 0, 0.26^(1 / 2),
-#'     0, 0, 0
-#'   ),
-#'   ncol = 3
-#' )
-#' S <- F <- I <- diag(3)
-#' S[1, 1] <- 225
-#' S[2, 2] <- 166.5
-#' S[3, 3] <- 166.5
-#' mu <- c(100, 100, 100)
-#' data <- dat_mvn_ram(
-#'   n = 100,
-#'   A = A,
-#'   S = S,
-#'   F = F,
-#'   I = I,
-#'   mu = mu
-#' )
-#' @export
-dat_mvn_ram <- function(n,
-                        A,
-                        S,
-                        F,
-                        I,
-                        mu = NULL,
-                        ...) {
-  dat_mvn(
-    n = n,
-    Sigma = ram(
-      A = A,
-      S = S,
-      F = F,
-      I = I
-    ),
-    mu = mu,
-    ...
-  )
-}
+#' data(dat_med_simple_lat)
+"dat_med_simple_lat"
 
-#' Generate Multivariate Normal Data from the A Matrix and Variances of Observed Variables
+#' Serial Mediation Model Data
 #'
-#' Generates multivariate normal data from
-#'   a \eqn{p \times p} A matrix,
-#'   \eqn{p} dimensional vector of variances of observed variables, and
-#'   \eqn{p} dimensional vector of means.
+#' Serial mediation model data
+#'   from a study of presumed media influence.
 #'
-#' The function interally uses the
-#'   [`ram_s`]
-#'   function
-#'   to derive the
-#'   \eqn{\Sigma_{p \times p}}
-#'   matrix from the matices provided.
-#'   The generated
-#'   \eqn{\Sigma_{p \times p}}
-#'   matrix is then used together with the
-#'   \eqn{p} dimensional
-#'   vector of means to generate data using
-#'   [`dat_mvn`].
-#'
-#' @author Ivan Jacob Agaloos Pesigan
-#' @inheritParams dat_mvn
-#' @inheritParams dat_mvn_ram
-#' @inheritParams ram_s
-#' @return Returns an \eqn{n \times p} multivariate normal data matrix generated
-#'   using the variance-covariance matrix derived from the RAM matrices
-#'   and the mean vector provided.
-#' @family data generating functions
-#' @importFrom MASS mvrnorm
-#' @keywords data
+#' @docType data
+#' @usage data(dat_med_serial2)
+#' @keywords datasets
 #' @examples
-#' A <- matrix(
-#'   data = c(
-#'     0, 0.26^(1 / 2), 0,
-#'     0, 0, 0.26^(1 / 2),
-#'     0, 0, 0
-#'   ),
-#'   ncol = 3
-#' )
-#' sigma2 <- c(15^2, 15^2, 15^2)
-#' F <- I <- diag(3)
-#' mu <- c(100, 100, 100)
-#' data <- dat_mvn_a(
-#'   n = 1000,
-#'   A = A,
-#'   sigma2 = sigma2,
-#'   F = F,
-#'   I = I,
-#'   mu = mu
-#' )
-#' @export
-dat_mvn_a <- function(n,
-                      A,
-                      sigma2,
-                      F,
-                      I,
-                      mu = NULL,
-                      ...) {
-  dat_mvn(
-    n = n,
-    Sigma = ram_s(
-      A = A,
-      sigma2 = sigma2,
-      F = F,
-      I = I,
-      SigmaMatrix = TRUE
-    ),
-    mu = mu,
-    ...
-  )
-}
+#' data(dat_med_serial2)
+"dat_med_serial2"

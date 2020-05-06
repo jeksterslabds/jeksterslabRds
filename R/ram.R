@@ -7,7 +7,7 @@
 #'   (\eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)})
 #'   using the Reticular Action Model notation.
 #'
-#' \deqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
+#' @details \deqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)
 #'   =
 #'   \mathbf{F}
 #'   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
@@ -15,7 +15,6 @@
 #'   \left[ \left( \mathbf{I} - \mathbf{A} \right)^{-1} \right]^{T}
 #'   \mathbf{F}^{T}
 #' }
-#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @param A Asymmetric paths,
 #'   such as regression coefficients and factor loadings.
@@ -70,13 +69,12 @@ ram <- function(A,
 #' Model-implied \eqn{\boldsymbol{\mu}} vector
 #'   using the Reticular Action Model notation.
 #'
-#' \deqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
+#' @details \deqn{\boldsymbol{\mu} \left( \boldsymbol{\theta} \right)
 #'   =
 #'   \mathbf{F}
 #'   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
 #'   \mathbf{M}
 #' }
-#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @inheritParams ram
 #' @param M Vector of means and intercepts.
@@ -114,13 +112,12 @@ ram_mu <- function(A,
 #'   (\eqn{\mathbf{M}} vector)
 #'   using the Reticular Action Model notation.
 #'
-#' \deqn{\mathbf{M}
+#' @details \deqn{\mathbf{M}
 #'   =
 #'   \mathbf{F}
 #'   \left( \mathbf{I} - \mathbf{A} \right)^{-1}
 #'   \boldsymbol{\mu}
 #' }
-#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @inheritParams ram
 #' @param mu Vector of expected values (\eqn{\boldsymbol{\mu}}).
@@ -159,7 +156,7 @@ ram_m <- function(A,
 #'   or \eqn{\mathbf{S}} Matrix
 #'   using the Reticular Action Model notation.
 #'
-#' Derives the
+#' @details Derives the
 #'   model-implied variance-covariance matrix
 #'   (\eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)})
 #'   or the
@@ -172,16 +169,15 @@ ram_m <- function(A,
 #'   (\eqn{\sigma^2})
 #'   vector (variances).
 #'   \strong{Note that the first element in the matrix should be an exogenous variable.}
-#'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @inheritParams ram
 #' @param sigma2 Vector of variances (\eqn{\sigma^2}).
 #' @param SigmaMatrix Logical.
-#'   If `TRUE`,
+#'   If \code{TRUE},
 #'     returns
 #'     the model-implied variance-covariance matrix
 #'     (\eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)}).
-#'   If `FALSE`,
+#'   If \code{FALSE},
 #'     returns the
 #'     \eqn{\mathbf{S}}
 #'     matrix.
@@ -245,4 +241,22 @@ ram_s <- function(A,
   } else {
     return(S)
   }
+}
+
+#' RAM Residuals
+#'
+#' @inheritParams ram
+#' @inheritParams sem_fml
+#' @export
+ram_residuals <- function(obs,
+                          A,
+                          S,
+                          F,
+                          I) {
+  obs - ram(
+    A = A,
+    S = S,
+    F = F,
+    I = I
+  )
 }

@@ -7,7 +7,7 @@
 #'
 #' @param ll Lower limit.
 #' @param ul Upper limit.
-#' @return Returns `TRUE` or `FALSE` based on the test.
+#' @return Returns \code{TRUE} or \code{FALSE} based on the test.
 #' @family confidence interval miscellaneous functions
 #' @keywords ci
 #' @export
@@ -70,32 +70,32 @@ ci_shape <- function(ll,
 #' @return Returns a vector with the following elements:
 #'  \describe{
 #'   \item{se}{Standard error.}
-#'   \item{z}{`z` statistic.}
-#'   \item{p}{`p`-value.}
-#'   \item{sig_001}{Logical. Tests if `p` < 0.001.}
-#'   \item{sig_01}{Logical. Tests if `p` < 0.01.}
-#'   \item{sig_05}{Logical. Tests if `p` < 0.05.}
+#'   \item{z}{\code{z} statistic.}
+#'   \item{p}{\code{p}-value.}
+#'   \item{sig_001}{Logical. Tests if \code{p} < 0.001.}
+#'   \item{sig_01}{Logical. Tests if \code{p} < 0.01.}
+#'   \item{sig_05}{Logical. Tests if \code{p} < 0.05.}
 #'   \item{ll_001}{Lower limit. Alpha 0.001.}
 #'   \item{ll_01}{Lower limit. Alpha 0.01.}
 #'   \item{ll_05}{Lower limit. Alpha 0.05.}
 #'   \item{ul_05}{Upper limit. Alpha 0.05.}
 #'   \item{ul_01}{Upper limit. Alpha 0.01.}
 #'   \item{ul_001}{Upper limit. Alpha 0.001.}
-#'   \item{zero_hit_001}{Logical. Tests if `ll_001` < 0 < `ul_001`.}
-#'   \item{zero_hit_01}{Logical. Tests if `ll_01` < 0 < `ul_01`.}
-#'   \item{zero_hit_05}{Logical. Tests if `ll_05` < 0 < `ul_05`.}
-#'   \item{ci_width_001}{`ll_001` - `ul_001`.}
-#'   \item{ci_width_01}{`ll_01` - `ul_01`.}
-#'   \item{ci_width_05}{`ll_05` - `ul_05`.}
+#'   \item{zero_hit_001}{Logical. Tests if \code{ll_001} < 0 < \code{ul_001}.}
+#'   \item{zero_hit_01}{Logical. Tests if \code{ll_01} < 0 < \code{ul_01}.}
+#'   \item{zero_hit_05}{Logical. Tests if \code{ll_05} < 0 < \code{ul_05}.}
+#'   \item{ci_width_001}{\code{ll_001} - \code{ul_001}.}
+#'   \item{ci_width_01}{\code{ll_01} - \code{ul_01}.}
+#'   \item{ci_width_05}{\code{ll_05} - \code{ul_05}.}
 #'   \item{ci_shape_001}{Confidence interval shape. Alpha 0.001.}
 #'   \item{ci_shape_01}{Confidence interval shape. Alpha 0.01.}
 #'   \item{ci_shape_05}{Confidence interval shape. Alpha 0.05.}
 #' }
-#'   Note that `se`, `z`, `p`, and `sig`
+#'   Note that \code{se}, \code{z}, \code{p}, and \code{sig}
 #'   are based on the normal theory.
-#'   Confidence limits for [`ci_wald`] are based on the normal theory.
-#'   Ajustments for asymmetry for [`ci_bc`]
-#'   and [`ci_bca`] are made in the confidence limits.
+#'   Confidence limits for \code{\link{ci_wald}} are based on the normal theory.
+#'   Ajustments for asymmetry for \code{\link{ci_bc}}
+#'   and \code{\link{ci_bca}} are made in the confidence limits.
 #' @family confidence interval functions
 #' @inherit ci_shape params
 #' @importFrom stats qnorm
@@ -198,7 +198,7 @@ ci_wald <- function(est,
 #'   ),
 #'   ncol = 3
 #' )
-#' data <- dat_mvn(
+#' data <- gendat_mvn(
 #'   n = 100,
 #'   Sigma = Sigma,
 #'   mu = c(100, 100, 100)
@@ -213,8 +213,6 @@ ci_wald <- function(est,
 #' pb <- boot_fit(boot_resamples = boot_pb_resamples, fitFUN = med_simple, minimal = TRUE)
 #' nb_ci_quantile <- ci_quantile(dist = nb, est = est)
 #' pb_ci_quantile <- ci_quantile(dist = pb, est = est)
-#' @importFrom stats sd
-#' @importFrom stats quantile
 #' @export
 ci_quantile <- function(dist,
                         est) {
@@ -306,7 +304,7 @@ ci_quantile <- function(dist,
 #'   ),
 #'   ncol = 3
 #' )
-#' data <- dat_mvn(
+#' data <- gendat_mvn(
 #'   n = 100,
 #'   Sigma = Sigma,
 #'   mu = c(100, 100, 100)
@@ -443,7 +441,7 @@ ci_bc <- function(dist, est) {
 #'   ),
 #'   ncol = 3
 #' )
-#' data <- dat_mvn(
+#' data <- gendat_mvn(
 #'   n = 100,
 #'   Sigma = Sigma,
 #'   mu = c(100, 100, 100)

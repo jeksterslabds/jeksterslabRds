@@ -1,35 +1,9 @@
-#' ---
-#' title: "Test: util_wget"
-#' author: "Ivan Jacob Agaloos Pesigan"
-#' date: "`r Sys.Date()`"
-#' output: rmarkdown::html_vignette
-#' vignette: >
-#'   %\VignetteIndexEntry{Test: util_wget}
-#'   %\VignetteEngine{knitr::rmarkdown}
-#'   %\VignetteEncoding{UTF-8}
-#' ---
-#'
-#+ include=FALSE, cache=FALSE
-knitr::opts_chunk$set(
-  error = TRUE,
-  collapse = TRUE,
-  comment = "#>",
-  out.width = "100%"
-)
-#'
-#+ setup
-library(testthat)
-library(jeksterslabRds)
-context("Test dat_linreg_X assuming N(mu, sigma^2).")
-#'
-#' ## Set test parameters
-#'
-#+ parameters
+context("Test gendat_linreg_X assuming N(mu, sigma^2).")
 foo <- function(n,
                 k,
                 rFUN_X,
                 ...) {
-  dat <- dat_linreg_X(
+  dat <- gendat_linreg_X(
     n = n,
     k = k,
     rFUN_X = rFUN_X,
@@ -65,46 +39,6 @@ se <- c(
   vec_sigma_mu,
   vec_sigma_sigma2
 )
-
-Variable <- c(
-  "`reps`",
-  "`n`",
-  "`k`",
-  "`rFUN_X`",
-  "`mu`",
-  "`sigma`",
-  "`sigma_sigma2`"
-)
-Description <- c(
-  "Number of simulation replications.",
-  "Sample size $\\left( n \\right)$.",
-  "Number of regressors which includes a regressor whose value is 1 for each observation.",
-  "The distribution function used to generate values of $\\mathbf{X}$.",
-  "Population mean $\\left( \\mu \\right)$.",
-  "Population variance $\\left( \\sigma \\right)$.",
-  "Standard error of the variance $\\left( \\sigma_{\\sigma^2} = \\sigma^2 \\sqrt{\\frac{2}{n - 1}} \\right)$."
-)
-Value <- c(
-  reps,
-  n,
-  k,
-  "`rnorm`",
-  mu,
-  sigma,
-  sigma_sigma2
-)
-knitr::kable(
-  x = data.frame(
-    Variable,
-    Description,
-    Value
-  ),
-  row.names = FALSE
-)
-#'
-#' ## Run test
-#'
-#+ test
 simulation <- t(
   sapply(
     X = rep(x = n, times = reps),
@@ -115,10 +49,6 @@ simulation <- t(
     sd = sigma
   )
 )
-#'
-#' ## Results
-#'
-#+ results
 mean_estimates <- apply(
   X = simulation,
   MARGIN = 2,
