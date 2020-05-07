@@ -43,7 +43,7 @@ foo <- function(n,
     apply(X = dat, MARGIN = 2, FUN = var)
   )
 }
-reps <- 10000
+reps <- 20000
 n <- 1000
 k <- sample(x = 2:5, size = 1)
 rFUN_X <- rnorm
