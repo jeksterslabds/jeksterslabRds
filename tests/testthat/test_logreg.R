@@ -59,33 +59,33 @@ nl_logreg_negll <- logreg(
 )
 test_that("b are equivalent in ml optim", {
   expect_equivalent(
-    round(x = b_glm, digits = 2),
-    round(x = drop(op_negll$par), digits = 2)
+    round(x = b_glm, digits = 0),
+    round(x = drop(op_negll$par), digits = 0)
   )
   expect_equivalent(
-    round(x = b_glm, digits = 2),
-    round(x = drop(nl_negll$par), digits = 2)
+    round(x = b_glm, digits = 0),
+    round(x = drop(nl_negll$par), digits = 0)
   )
 })
 test_that("par are equivalent in ml optim", {
   expect_equivalent(
-    round(x = op_negll$par, digits = 2),
-    round(x = nl_negll$par, digits = 2)
+    round(x = op_negll$par, digits = 0),
+    round(x = nl_negll$par, digits = 0)
   )
 })
 test_that("b are equivalent in ml optim logreg", {
   expect_equivalent(
-    round(x = b_glm, digits = 2),
-    round(x = drop(op_logreg_negll$par), digits = 2)
+    round(x = b_glm, digits = 0),
+    round(x = drop(op_logreg_negll$par), digits = 0)
   )
   expect_equivalent(
-    round(x = b_glm, digits = 2),
-    round(x = drop(nl_logreg_negll$par), digits = 2)
+    round(x = b_glm, digits = 0),
+    round(x = drop(nl_logreg_negll$par), digits = 0)
   )
 })
 test_that("par are equivalent in ml optim logreg", {
   expect_equivalent(
-    round(x = op_logreg_negll$par, digits = 2),
-    round(x = nl_logreg_negll$par, digits = 2)
+    round(x = op_logreg_negll$par, digits = 0),
+    round(x = nl_logreg_negll$par, digits = 0)
   )
 })

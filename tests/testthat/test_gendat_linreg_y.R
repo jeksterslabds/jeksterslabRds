@@ -67,12 +67,12 @@ se_estimates <- tail(
   ),
   n = 2
 )
-# test_that("parameters [beta and epsilon(mu = 0, sigma^2)] are equivalent to mean estimates", {
-#  expect_equivalent(
-#    round(x = mean_estimates, digits = 0),
-#    round(x = parameters, digits = 0)
-#  )
-# })
+test_that("parameters [beta and epsilon(mu = 0, sigma^2)] are equivalent to mean estimates", {
+  expect_equivalent(
+    round(x = mean_estimates, digits = 0),
+    round(x = parameters, digits = 0)
+  )
+})
 # Small mismatch in se residual variance
 # test_that("parameter standard errors are equivalent to estimates standard errors", {
 #  expect_equivalent(

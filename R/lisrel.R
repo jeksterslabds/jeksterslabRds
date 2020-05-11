@@ -766,9 +766,6 @@ lisrel_xx <- function(LX,
 #'   \eqn{\boldsymbol{\Phi}_{n \times n}}
 #'   variance-covariance matrix of
 #'   \eqn{\boldsymbol{\xi}}.
-#' @inheritParams lisrel_yy
-#' @inheritParams lisrel_yx
-#' @inheritParams lisrel_xx
 #' @return Returns the model-implied variance-covariance matrix
 #'   (\eqn{\boldsymbol{\Sigma} \left( \boldsymbol{\theta} \right)})
 #'   derived from the

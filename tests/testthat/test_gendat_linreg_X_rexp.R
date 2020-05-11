@@ -14,7 +14,7 @@ foo <- function(n,
     apply(X = dat, MARGIN = 2, FUN = var)
   )
 }
-reps <- 1000
+reps <- 20000
 n <- 1000
 k <- sample(x = 2:10, size = 1)
 rFUN_X <- rexp
@@ -46,7 +46,7 @@ mean_estimates <- apply(
 )
 test_that("parameters are equivalent to mean estimates", {
   expect_equivalent(
-    round(x = mean_estimates, digits = 2),
-    round(x = parameters, digits = 2)
+    round(x = mean_estimates, digits = 0),
+    round(x = parameters, digits = 0)
   )
 })
