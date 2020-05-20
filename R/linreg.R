@@ -6,7 +6,7 @@
 #' Estimates coefficients of a linear regression model
 #'   using
 #'   \deqn{
-#'     \hat{\beta}
+#'     \mathbf{\hat{\beta}}
 #'     =
 #'     \left(
 #'       \mathbf{X}^{\prime}
@@ -16,7 +16,7 @@
 #'       \mathbf{X}^{\prime}
 #'       \mathbf{y}
 #'     \right)
-#'   }.
+#'   }
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @inheritParams linreg
@@ -694,8 +694,8 @@ linreg_vcov <- function(beta_hat = NULL,
 #'
 #' Estimates parameters \eqn{\boldsymbol{\hat{\beta}}} of a linear regression model
 #'   given by
-#'   \eqn{\mathbf{y_{n \time 1}} = \mathbf{X_{n \times k}b_{k \times i}} +
-#'   \mathbf{e_{n \times 1}}}.
+#'   \eqn{\mathbf{y}_{n \times 1} = \mathbf{X}_{n \times k} \mathbf{b}_{k \times i} +
+#'   \mathbf{e}_{n \times 1}}.
 #'
 #' @author Ivan Jacob Agaloos Pesigan
 #' @param X The data matrix,

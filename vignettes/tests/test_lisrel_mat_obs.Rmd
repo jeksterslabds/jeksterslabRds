@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test lisrel_mat.")
@@ -71,3 +73,5 @@ test_that("Sigma(theta) is equivalent to Sigma", {
     round(x = Sigma, digits = 4)
   )
 })
+```
+

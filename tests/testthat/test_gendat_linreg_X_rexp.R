@@ -1,3 +1,5 @@
+library(testthat)
+library(jeksterslabRds)
 context("Test gendat_linreg_X assuming exp(rate).")
 foo <- function(n,
                 k,

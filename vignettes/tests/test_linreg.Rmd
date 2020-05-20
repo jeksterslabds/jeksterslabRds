@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test linreg.")
@@ -226,3 +228,5 @@ nl_linreg_negll <- linreg(
 #    round(x = nl_linreg_negll$par, digits = 2)
 #  )
 # })
+```
+

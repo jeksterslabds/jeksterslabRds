@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test lisrel.")
@@ -226,3 +228,5 @@ test_that("Sigma_theta_xy is equivalent to lav_xy", {
     round(x = lav_yx, digits = 4)
   )
 })
+```
+

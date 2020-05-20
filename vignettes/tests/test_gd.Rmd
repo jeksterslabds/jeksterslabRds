@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test gd.")
@@ -87,3 +89,5 @@ test_that("gd estimates are the same as glm", {
 # w_lm = $w_{lm}$, estimates of weights using the `lm` function
 # w_glm = $w_{glm}$, estimates of weights using the `glm` function (binomial using maximum likelihood)
 # w_gd = $w_{gd}$, estimates of weights using gradient descent
+```
+

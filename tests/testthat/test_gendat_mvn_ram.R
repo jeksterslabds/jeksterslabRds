@@ -1,3 +1,5 @@
+library(testthat)
+library(jeksterslabRds)
 context("Test gendat_mvn_ram.")
 alpha <- runif(n = 1, min = 0, max = 0.50)
 beta <- runif(n = 1, min = 0, max = 0.50)

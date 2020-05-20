@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test logreg.")
@@ -91,3 +93,5 @@ test_that("par are equivalent in ml optim logreg", {
     round(x = nl_logreg_negll$par, digits = 0)
   )
 })
+```
+

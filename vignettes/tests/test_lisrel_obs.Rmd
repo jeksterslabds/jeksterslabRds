@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test lisrel_obs.")
@@ -124,3 +126,5 @@ test_that("Sigma(theta) is equivalent to the sample covariance matrix (perfect f
     round(x = sample_cov_myx, digits = 4)
   )
 })
+```
+

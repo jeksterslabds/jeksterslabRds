@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test gendat_linreg_y assuming epsilon(mu = 0, sigma^2).")
@@ -88,3 +90,5 @@ test_that("parameters [beta and epsilon(mu = 0, sigma^2)] are equivalent to mean
 # sigma2 = $\sigma^2$, residual population standard deviation
 # sigma_mu = $\sigma_{\mu}$, standard error of the mean ($\frac{\sigma}{\sqrt{n}}$)
 # sigma_sigma2 = $\sigma_{\sigma^2}$, standard error of the variance ($\sigma^2 \sqrt{\frac{2}{n - 1}}$)
+```
+

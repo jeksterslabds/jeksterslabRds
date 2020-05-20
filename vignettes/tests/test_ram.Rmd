@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test ram.")
@@ -147,3 +149,5 @@ test_that("ram_m produces correct M vector", {
     round(x = ram_m, digits = 4)
   )
 })
+```
+

@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test gendat_linreg_X assuming t(df > 2).")
@@ -53,3 +55,5 @@ test_that("parameters are equivalent to mean estimates", {
     round(x = parameters, digits = 0)
   )
 })
+```
+

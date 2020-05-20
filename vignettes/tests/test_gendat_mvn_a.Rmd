@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test gendat_mvn_a.")
@@ -64,3 +66,5 @@ test_that("mu is equivalent to sample mean vector", {
     round(x = sample_mean, digits = 4)
   )
 })
+```
+

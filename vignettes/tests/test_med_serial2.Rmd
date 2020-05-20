@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test med_serial2 med_serial2_lav med_serial2_ml.")
@@ -241,3 +243,5 @@ test_that("M is equivalent to M_hat", {
     round(x = M_lm, digits = 4)
   )
 })
+```
+

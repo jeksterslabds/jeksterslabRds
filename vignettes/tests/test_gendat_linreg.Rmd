@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test gendat_linreg assuming epsilon ~ N(mu = 0, sigma^2).")
@@ -57,3 +59,5 @@ test_that("parameters [beta and epsilon(mu = 0, sigma^2)] are equivalent to mean
     round(x = parameters, digits = 1)
   )
 })
+```
+

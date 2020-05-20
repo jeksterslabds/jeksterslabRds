@@ -1,7 +1,8 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
-context("Test gendat_linreg_X assuming t(df > 2).")
-tolerance <- 0.01
+context("Test gendat_linreg_X assuming exp(rate).")
 foo <- function(n,
                 k,
                 rFUN_X,
@@ -20,10 +21,10 @@ foo <- function(n,
 reps <- 20000
 n <- 1000
 k <- sample(x = 2:10, size = 1)
-rFUN_X <- rt
-df <- sample(x = 3:30, size = 1)
-mu <- 0
-sigma2 <- df / (df - 2)
+rFUN_X <- rexp
+rate <- sample(x = 1:30, size = 1)
+mu <- 1 / rate
+sigma2 <- 1 / rate^2
 sigma <- sqrt(sigma2)
 vec_mu <- rep(x = mu, times = k)
 vec_mu[1] <- 1
@@ -39,7 +40,7 @@ simulation <- t(
     FUN = foo,
     k = k,
     rFUN_X = rFUN_X,
-    df = df
+    rate = rate
   )
 )
 mean_estimates <- apply(
@@ -53,3 +54,5 @@ test_that("parameters are equivalent to mean estimates", {
     round(x = parameters, digits = 0)
   )
 })
+```
+

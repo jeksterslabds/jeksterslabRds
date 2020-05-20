@@ -1,3 +1,5 @@
+
+```{r }
 library(testthat)
 library(jeksterslabRds)
 context("Test linreg_e linreg_rss linreg_mse linreg_rmse linreg_r3 linreg_rbar2 linreg_vcov.")
@@ -227,3 +229,5 @@ test_that("vcov from linreg_vcov and lm are equivalent", {
     round(x = vcov_lm, digits = 4)
   )
 })
+```
+
