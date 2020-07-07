@@ -12,26 +12,8 @@ jobs:
   # macOS binary packages not available for r-devel
   - r: devel
     os: osx
-addons:
-  apt:
-    update: true
-    packages:
-    - libmagick++-dev
-    - libpoppler-cpp-dev
 cache: packages
 before_install:
-- if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew update && brew install imagemagick ghostscript; fi
 - Rscript -e 'if (!require("covr")) install.packages("covr")'
-- Rscript -e 'if (!require("pkgdown")) install.packages("pkgdown")'
 after_success:
 - Rscript -e 'covr::codecov()'
-- Rscript -e 'pkgdown::build_site()'
-deploy:
-  provider: pages
-  skip_cleanup: true
-  strategy: git
-  token: "$GITHUB_PAT"
-  keep_history: true
-  local_dir: docs
-  on:
-    branch: master
